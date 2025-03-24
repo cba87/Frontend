@@ -1,0 +1,42 @@
+<div class="list">
+    <div style="text-align: center; margin-top: 10px;">
+    <h3>確認表單</h3>
+    </div>  
+    <div class="personal" >
+        <hr style="border: 1px solid #333;">
+        <p>姓名:{{name}}</p>
+        <p>手機:{{phone}}</p>
+        <p>email:{{email}}</p>
+        <p>年齡:{{age}}</p>
+
+    </div >
+    <div class="question">
+        @for(data of quesanswer;track data){
+            <div>
+            <span>{{data.quesId}} </span>
+            <span>{{data.quesName}}</span>
+            @if (data.type=='multi'){
+               @for(anwser of data.answer;track $index){
+                <p>{{anwser}} </p>
+
+               }
+                
+            }
+            @if (data.type=='text'){
+                @for(anwser of data.answer;track $index){
+                    <p>{{anwser}} </p>
+    
+                   }     
+                
+            }
+            @if (data.type=='single'){
+                @for(anwser of data.answer;track $index){
+                    <p>{{anwser}} </p>
+    
+                   }
+            }</div>
+        }
+    </div>
+    <button (click)="goback()">返回</button>
+    </div>
+    
