@@ -1,0 +1,84 @@
+<div class="list">
+  <div class="title" style="text-align: center">
+    <h2>{{ quiz.name }}</h2>
+  </div>
+  <div class="top">
+    <p>問卷簡介</p>
+    <div style="text-align: center">
+      <textarea style="resize: none; width: 98%; height: 10vh">{{
+        quiz.description
+      }}</textarea>
+    </div>
+  </div>
+
+  <div class="personal">
+    <label>個人資料(*代表必填)</label>
+    <hr style="border: 1px solid #333" />
+    <form [formGroup]="form">
+      <label>*姓名</label>
+      <input formControlName="name" />
+      <label>*手機</label>
+      <input formControlName="phone" />
+      <label>*email</label>
+      <input formControlName="email" />
+      <label>*年齡</label>
+      <input formControlName="age" />
+    </form>
+  </div>
+  @for(data of quiz.quesList;track $index){
+  <label>{{ data.questnumber }} {{ data.name }}</label>
+  <hr style="border: solid; color: #333" />
+    <div>
+  @if(data.type=='text'){
+  
+    @if(data.required){
+    <span>*</span>
+    }
+    <span>{{ data.quesName }}</span>
+
+    <textarea
+      style="resize: none; width: 98%; height: 10vh"
+      [(ngModel)]="data.answer"
+    >
+    </textarea>
+  
+  } @if(data.type=='multi'){
+  
+    @if(data.required){
+    <span>*</span>
+    }
+    <span>{{ data.quesName }}</span>
+    @for(option of data.options;track $index){
+    <input type="checkbox" [(ngModel)]="option.answer" />
+    {{ option.optionName }}
+    }
+  
+  } @if(data.type=='single'){
+  
+    @if(data.required){
+    <span>*</span>
+    }
+    <span>{{ data.quesName }}</span>
+    @for(option of data.options;track $index){
+    <input
+      type="radio"
+      name="{{ option.optionName }}"
+      value="{{ option.optionName }}"
+      (change)="changeData(option, data.options)"
+      [(ngModel)]="option.answer"
+    />
+    {{ option.optionName }}
+    }
+  
+
+  } </div>}
+  <div class="button1">
+    
+    <button class="d-flex justify-content-end" (click)="gotolist()">
+      返回列表頁
+    </button>
+    <button class="d-flex justify-content-end" (click)="gotocontirmation()">
+      預覽
+    </button>
+  </div>
+</div>

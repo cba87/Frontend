@@ -1,0 +1,21 @@
+
+<table border="1">
+    <thead>
+      <tr>
+        
+        @for(column of displayedColumns;track column){
+        <th>{{column}}</th>}
+      </tr>
+    </thead>
+    <tbody>
+        @for(row of userArray;track $index){
+      <tr> 
+        
+        <td>{{row.quesId}}</td>
+        <td>{{row.userName}}</td>
+        <td>{{row.fillinDate}}</td>
+        <td><a href="http://localhost:4200/" (click)="stastictisByName(row.userName,$event)">{{row.result}}</a></td>
+      </tr>}
+    </tbody>
+</table>
+

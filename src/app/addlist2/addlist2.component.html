@@ -1,0 +1,74 @@
+<select [(ngModel)]="selectData" (change)="changetype()">
+ <option>新增問題類型</option>
+ <option value="single">單選</option>
+ <option value="multi">多選</option>
+ <option value="text">文字</option>
+</select>
+<input type="checkbox" [(ngModel)]="required">必填
+<p>問題:<input type="text" [(ngModel)]="quesName"></p>
+@if(selectData=='single'){
+@for(data of newoptionArray1;track data){
+    <p>選項:<input type="text" [(ngModel)]="data.optionName"></p>
+}
+<mat-icon aria-hidden="false" aria-label="add icon" fontIcon="add" (click)="addoption1()"></mat-icon>
+<mat-icon aria-hidden="false" aria-label="add icon" fontIcon="remove" (click)="remove1()"></mat-icon>
+@if(reviseboolean == false){
+  <button class="button1" (click)="addQuestion()">新增問題</button>
+  }
+}
+@if(selectData=='multi'){
+    @for(data of newoptionArray1;track data){
+        <p>選項:<input type="text" [(ngModel)]="data.optionName"></p>
+    }
+    <mat-icon aria-hidden="false" aria-label="add icon" fontIcon="add" (click)="addoption1()"></mat-icon>
+    <mat-icon aria-hidden="false" aria-label="add icon" fontIcon="remove" (click)="remove1()"></mat-icon>
+    @if(reviseboolean == false){
+      <button class="button1" (click)="addQuestion()">新增問題</button>
+      }
+    }
+@if(selectData=='text'){
+
+@if(reviseboolean == false){
+<button class="button1" (click)="addQuestion()">新增問題</button>
+}
+}
+@if(reviseboolean == true){
+  <button class="button1" (click)="Revise()">確認修改</button>
+}
+<div>
+<mat-icon aria-hidden="false" aria-label="delete icon" fontIcon="delete" (click)="delete()"></mat-icon>
+<table border="1">
+    <thead>
+      <tr>
+        
+        @for(column of displayedColumns;track column){
+        <th>{{column}}</th>}
+      </tr>
+    </thead>
+    <tbody>
+        @for(row of quesList;track $index){
+      <tr> 
+        
+        <td><input type="checkbox" [value] ="$index" (change)="updateSelection($event)">{{row.quesId}}</td>
+        <td>@if(row.required){必填}@if(!row.required){非必填}</td>
+        <td>{{row.quesName}}</td>
+        <td>
+          @if(row.type=='single'){
+            單選
+          }
+          @if(row.type=='multi'){
+            多選
+          }
+          @if(row.type=='text'){
+            文字
+          }
+
+          <mat-icon aria-hidden="false" aria-label="add icon" fontIcon="edit" (click)="ReInput($index)"></mat-icon>
+          </td>
+      </tr>}
+    </tbody>
+</table>
+
+<button class="button2" (click)="gotoaddlist1()">返回</button>
+<button class="button1" (click)="preview()">預覽</button>
+</div>
